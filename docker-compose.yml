@@ -27,7 +27,7 @@ services:
 
     # db mysql
     db:
-        image: mysql:8
+        image: mysql:5.7
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: ${DB_DATABASE:-laravel}
