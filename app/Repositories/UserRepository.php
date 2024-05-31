@@ -27,4 +27,9 @@ class UserRepository
         $data['password'] = bcrypt($data['password']);
         return $this->user->create((array) $data);
     }
+
+    public function findById(string $id) : ?User
+    {
+        return $this->user->find($id);
+    }
 }
