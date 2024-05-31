@@ -19,4 +19,13 @@ class UserRepository
             }
         })->paginate($totalPerPage, ['*'], 'page', $page);
     }
+
+    public function createNew(string $name, string $email, string $password): User
+    {
+        return $this->user->create([
+            'name' => $name,
+            'email' => $email,
+            'password' => bcrypt($password),
+        ]);
+    }
 }
