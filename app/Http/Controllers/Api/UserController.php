@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\DTO\Users\CreateUserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
@@ -25,11 +26,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $user = $this->userRepository->createNew(
-            $request->name,
-            $request->email,
-            $request->password,
-        );
+        $user = $this->userRepository->createNew(new CreateUserDTO(
+            ... $request->only(
+                'name',
+                'email',
+                'password'
+            )
+        ));
 
         return new UserResource($user);
     }
