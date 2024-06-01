@@ -13,5 +13,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/permissions', PermissionController::class);
     Route::apiResource('users', UserController::class);
 });
-
-
