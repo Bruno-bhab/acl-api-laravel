@@ -15,6 +15,7 @@ class ACLMiddleware
     {
 
     }
+
     /**
      * Handle an incoming request.
      *
@@ -23,9 +24,9 @@ class ACLMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $routeName = Route::currentRouteName();
-        if(!$this->userRepository->hasPermissions($request->user(), $routeName)){
+        if (! $this->userRepository->hasPermissions($request->user(), $routeName)) {
             return response()->noContent(HttpResponse::HTTP_UNAUTHORIZED);
-        };
+        }
 
         return $next($request);
     }

@@ -20,8 +20,8 @@ class UserRepository
                 $query->where('name', 'LIKE', "%{$filter}%");
             }
         })
-        ->with(['permissions'])
-        ->paginate($totalPerPage, ['*'], 'page', $page);
+            ->with(['permissions'])
+            ->paginate($totalPerPage, ['*'], 'page', $page);
     }
 
     public function createNew(CreateUserDTO $dto): User
@@ -73,6 +73,7 @@ class UserRepository
         }
 
         $user->permissions()->sync($permissions);
+
         return true;
     }
 
@@ -87,7 +88,7 @@ class UserRepository
 
     public function hasPermissions(User $user, string $permissionName): bool
     {
-        if($user->isSuperAdm()){
+        if ($user->isSuperAdm()) {
             return true;
         }
 

@@ -18,7 +18,7 @@ class PermissionUserController extends Controller
     {
         $response = $this->userRepository->syncPermissions($id, $request->permissions);
 
-        if(!$response){
+        if (! $response) {
             return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -29,7 +29,7 @@ class PermissionUserController extends Controller
     {
         $permissions = $this->userRepository->getPermissions($id);
 
-        if(!$permissions){
+        if (! $permissions) {
             return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
         }
 
