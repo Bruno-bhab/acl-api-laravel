@@ -73,4 +73,13 @@ class UserRepository
         $user->permissions()->sync($permissions);
         return true;
     }
+
+    public function getPermissions(string $id)
+    {
+        if (! $user = $this->findById($id)) {
+            return false;
+        }
+
+        return $user->permissions()->get();
+    }
 }
