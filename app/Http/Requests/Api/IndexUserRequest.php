@@ -22,7 +22,7 @@ class IndexUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'totalPerPage' => [
+            'total_per_page' => [
                 'string',
                 'min:1',
                 'max:255',
