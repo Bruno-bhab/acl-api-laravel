@@ -10,15 +10,16 @@ use App\Http\Requests\Api\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Symfony\Component\HttpFoundation\Response as ResponseHttp;
 
 class UserController extends Controller
 {
-    public function __construct(private UserRepository $userRepository)
+    public function __construct(private readonly UserRepository $userRepository)
     {
     }
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResource
     {
         $users = $this->userRepository->getPaginate(
             totalPerPage: $request->total_per_page ?? 15,
@@ -28,33 +29,37 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): JsonResource
     {
         $user = $this->userRepository->createNew(new CreateUserDTO(... $request->validated()));
         return new UserResource($user);
     }
 
-    public function show(string $id)
+    public function show(string $id): JsonResource|ResponseHttp
     {
         if(!$user = $this->userRepository->findById($id)){
-            return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'user not found'], ResponseHttp::HTTP_NOT_FOUND);
         }
 
-        return new UserResource($user); 
+        return new UserResource($user);
     }
 
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, string $id): ResponseHttp
     {
         $response = $this->userRepository->update(new EditUserDTO(... [$id, ...$request->validated()]));
         if(!$response){
-            return response()->json(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'user not found'], ResponseHttp::HTTP_NOT_FOUND);
         }
 
-        return response()->json(['message' => 'user updated with success'], Response::HTTP_OK);
+        return response()->json(['message' => 'user updated with success'], ResponseHttp::HTTP_OK);
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): ResponseHttp
     {
-        //
+        if($this->userRepository->delete($id)){
+            return response()->json(['message' => 'user not found'], ResponseHttp::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(['message' => 'user not found'], ResponseHttp::HTTP_NO_CONTENT);
     }
 }
