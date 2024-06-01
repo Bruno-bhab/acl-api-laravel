@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\PermissionUserController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/me', [AuthApiController::class, 'me'])->middleware('auth:sanctum')->name('auth.me');
+Route::get('/me', [AuthApiController::class, 'me'])->middleware('auth:sanctum')->name('auth.me');
 Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:sanctum')->name('auth.logout');
 Route::post('/auth', [AuthApiController::class, 'auth'])->name('auth.login');
 
