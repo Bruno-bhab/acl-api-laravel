@@ -26,13 +26,13 @@ class UpdatePermissionRequest extends FormRequest
                 'required',
                 'min:3',
                 'max:255',
-                'string'
+                'string',
             ],
             'description' => [
                 'required',
                 'min:3',
                 'max:255',
-                'string'
+                'string',
             ],
         ];
     }

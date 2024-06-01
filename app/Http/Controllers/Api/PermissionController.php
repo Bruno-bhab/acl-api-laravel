@@ -26,18 +26,20 @@ class PermissionController extends Controller
             page: $request->page ?? 1,
             filter: $request->filter ?? '',
         );
+
         return PermissionResource::collection($permissions);
     }
 
     public function store(StorePermissionRequest $request): JsonResource
     {
-        $permission = $this->permissionRepository->createNew(new CreatePermissionDTO(... $request->validated()));
+        $permission = $this->permissionRepository->createNew(new CreatePermissionDTO(...$request->validated()));
+
         return new PermissionResource($permission);
     }
 
     public function show(string $id): JsonResource|ResponseHttp
     {
-        if(!$permission = $this->permissionRepository->findById($id)){
+        if (! $permission = $this->permissionRepository->findById($id)) {
             return response()->json(['message' => 'permission not found'], ResponseHttp::HTTP_NOT_FOUND);
         }
 
@@ -46,8 +48,8 @@ class PermissionController extends Controller
 
     public function update(UpdatePermissionRequest $request, string $id): ResponseHttp
     {
-        $response = $this->permissionRepository->update(new EditPermissionDTO(... [$id, ...$request->validated()]));
-        if(!$response){
+        $response = $this->permissionRepository->update(new EditPermissionDTO(...[$id, ...$request->validated()]));
+        if (! $response) {
             return response()->json(['message' => 'permission not found'], ResponseHttp::HTTP_NOT_FOUND);
         }
 
@@ -56,7 +58,7 @@ class PermissionController extends Controller
 
     public function destroy(string $id): ResponseHttp
     {
-        if(!$this->permissionRepository->delete($id)){
+        if (! $this->permissionRepository->delete($id)) {
             return response()->json(['message' => 'permission not found'], ResponseHttp::HTTP_NOT_FOUND);
         }
 

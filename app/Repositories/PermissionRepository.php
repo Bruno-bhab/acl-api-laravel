@@ -16,7 +16,7 @@ class PermissionRepository
     public function getPaginate(int $totalPerPage = 15, int $page = 1, string $filter = ''): LengthAwarePaginator
     {
         return $this->permission->where(function ($query) use ($filter) {
-            if ($filter !== ''){
+            if ($filter !== '') {
                 $query->where('name', 'LIKE', "%{$filter}%");
             }
         })->paginate($totalPerPage, ['*'], 'page', $page);
@@ -27,14 +27,14 @@ class PermissionRepository
         return $this->permission->create((array) $dto);
     }
 
-    public function findById(string $id) : ?Permission
+    public function findById(string $id): ?Permission
     {
         return $this->permission->find($id);
     }
 
     public function update(EditPermissionDTO $dto): bool
     {
-        if(!$permission = $this->findById($dto->id)){
+        if (! $permission = $this->findById($dto->id)) {
             return false;
         }
 
@@ -43,9 +43,10 @@ class PermissionRepository
 
     public function delete(string $id): bool
     {
-        if(!$permission = $this->findById($id)){
+        if (! $permission = $this->findById($id)) {
             return false;
         }
+
         return $permission->delete();
     }
 }

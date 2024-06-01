@@ -40,7 +40,7 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'min:6',
                 'max:20',
-            ]
+            ],
         ];
     }
 }

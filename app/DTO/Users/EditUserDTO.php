@@ -8,7 +8,7 @@ class EditUserDTO
         readonly public string $id,
         readonly public string $name,
         readonly public ?string $password = null,
-    ){
+    ) {
         //
     }
 }

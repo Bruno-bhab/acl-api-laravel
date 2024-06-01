@@ -8,7 +8,7 @@ class EditPermissionDTO
         readonly public string $id,
         readonly public string $name,
         readonly public string $description,
-    ){
+    ) {
         //
     }
 }

@@ -8,7 +8,7 @@ class CreateUserDTO
         readonly public string $name,
         readonly public string $email,
         readonly public string $password
-    ){
+    ) {
         //
     }
 }
