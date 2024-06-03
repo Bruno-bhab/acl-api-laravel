@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => response()->noContent(Response::HTTP_OK))->name('index');
+Route::get('/', fn () => response()->json(['message' => 'ok'], Response::HTTP_OK))->name('index');
 Route::get('/unauthorized', fn () => response()->json(['message' => 'unauthorized']))->name('unauthorized');
 
 Route::get('/me', [AuthApiController::class, 'me'])->middleware('auth:sanctum')->name('auth.me');
