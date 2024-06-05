@@ -27,7 +27,7 @@ services:
 
     # db mysql
     db:
-        image: mysql:5.7
+        image: bitnami/mysql:latest
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: ${DB_DATABASE:-laravel}
